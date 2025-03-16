@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import com.okmich.mysql2mongodb.migrate.BaseMigration;
 import  com.okmich.mysql2mongodb.migrate.UsersByGenre;
 
 public class UserPanel extends JPanel {
@@ -24,8 +26,13 @@ public class UserPanel extends JPanel {
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-UsersByGenre(dbServerUrl, dbUser, dbPassword, mongoDbUrl, mongoDbName);
-                textArea1.setText("sucess");
+                // Получаем данные из MongoDB
+                BaseMigration migrationUtil = new UsersByGenre(dbServerUrl, dbUser, dbPassword, mongoDbUrl, mongoDbName);
+                String data = migrationUtil.getDataFromMongo();
+
+                // Отображаем данные в JTextArea
+                textArea1.append(data);
+                textArea1.append("success");
             }
         });
     }

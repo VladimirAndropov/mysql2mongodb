@@ -35,10 +35,17 @@ public class Main {
                 JOptionPane.QUESTION_MESSAGE,
                 null,
                 null,
-                "users,jdbc:mysql://localhost:3306/movielens,root,password,mongodb://localhost:27017/movielens,movielens");
+                "users,jdbc:mysql://localhost:3306/movielens,debian-sys-maint,Fpqjfwnl9KQKzrPM,mongodb://localhost:27017/movielens,movielens");
 
         String[] parts = userInput.split(",");
-
+        /**
+         *
+         * @param dbServerUrl
+         * @param dbUser
+         * @param dbPassword
+         * @param mongoDbUrl
+         * @param mongoDbName
+         */
         String entity = getOrDefault( parts,0, "users");
         String dbServerUrl = getOrDefault(parts,1, "jdbc:mysql://localhost:3306/movielens");
         String dbUser =  getOrDefault(parts,2, "debian-sys-maint");
