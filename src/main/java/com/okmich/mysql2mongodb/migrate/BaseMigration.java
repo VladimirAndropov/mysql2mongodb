@@ -64,7 +64,7 @@ public abstract class BaseMigration {
 
     protected abstract Document rowToDocument(Object... row);
 
-    public String getDataFromMongo(){
+    public String getDataFromMongo(String selectedItem){
         return null;
     }
 }

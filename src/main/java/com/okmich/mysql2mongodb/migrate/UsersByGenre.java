@@ -33,7 +33,7 @@ public class UsersByGenre extends BaseMigration {
         return null;
     }
 
-    public String getDataFromMongo() {
+    public String getDataFromMongo(String selectedItem) {
 
         MongoDatabase mongoDB = getMongoDatabase(mongoDbUrl, mongoDbName);
         MongoCollection<Document> collection = mongoDB.getCollection("users");
@@ -44,12 +44,12 @@ public class UsersByGenre extends BaseMigration {
         );
 
         // Выполняем запрос (например, получаем все документы)
-//        FindIterable<Document> documents = collection.find(filter);
-        FindIterable<Document> documents = collection.find(Filters.and(Filters.gt("age_id", 18), Filters.regex("occupation", "^Admin"))) // Фильтр
-                .sort(Sorts.descending("age_id")) // Сортировка
-                .projection(Projections.fields(Projections.include("occupation", "age_id"), Projections.excludeId())) // Проекция
-                .limit(10) // Лимит
-                .skip(2); // Пропуск
+        FindIterable<Document> documents = collection.find( Filters.regex("gender", selectedItem));
+//        FindIterable<Document> documents = collection.find(Filters.and(Filters.gt("age_id", 18), Filters.regex("occupation", "^Admin"))) // Фильтр
+//                .sort(Sorts.descending("age_id")) // Сортировка
+//                .projection(Projections.fields(Projections.include("occupation", "age_id"), Projections.excludeId())) // Проекция
+//                .limit(10) // Лимит
+//                .skip(2); // Пропуск
 
 
         // Обрабатываем результаты
