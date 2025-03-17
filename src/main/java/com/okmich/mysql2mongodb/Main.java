@@ -5,16 +5,9 @@
  */
 package com.okmich.mysql2mongodb;
 
-import com.okmich.mysql2mongodb.migrate.BaseMigration;
-import com.okmich.mysql2mongodb.migrate.MoviesMigration;
-import com.okmich.mysql2mongodb.migrate.RatingsMigration;
-import com.okmich.mysql2mongodb.migrate.RatingsV2Migration;
-import com.okmich.mysql2mongodb.migrate.TagsMigration;
-import com.okmich.mysql2mongodb.migrate.UsersMigration;
 import com.okmich.mysql2mongodb.ui.AppFrame;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,12 +39,20 @@ public class Main {
          * @param mongoDbUrl
          * @param mongoDbName
          */
-        String entity = getOrDefault( parts,0, "users");
-        String dbServerUrl = getOrDefault(parts,1, "jdbc:mysql://localhost:3306/movielens");
-        String dbUser =  getOrDefault(parts,2, "debian-sys-maint");
-        String dbPassword =  getOrDefault(parts,3, "Fpqjfwnl9KQKzrPM");
-        String mongoDbUrl =  getOrDefault(parts,4, "mongodb://localhost:27017/movielens");
-        String mongoDbName =  getOrDefault(parts,5, "movielens");
+
+        Map<String, String> param = new HashMap<>();
+        param.put("dbServerUrl", null);
+        param.put("dbUser", null);
+        param.put("dbPassword", null);
+        param.put("mongoDbUrl", null);
+        param.put("mongoDbName", null);
+
+        String entity = param.getOrDefault( parts[0], "users");
+        String dbServerUrl = param.getOrDefault( parts[1], "jdbc:mysql://localhost:3306/movielens");
+        String dbUser =  param.getOrDefault( parts[2], "debian-sys-maint");
+        String dbPassword =  param.getOrDefault( parts[3], "Fpqjfwnl9KQKzrPM");
+        String mongoDbUrl =  param.getOrDefault( parts[4], "mongodb://localhost:27017/movielens");
+        String mongoDbName =  param.getOrDefault( parts[5], "movielens");
 
 //        if (entity == null || entity.isEmpty()) {
 //            System.err.println("Specify at least the table you wish to migrate ");
@@ -94,10 +95,5 @@ public class Main {
         });
 
     }
-    public static String getOrDefault(String[] array, int index, String defaultValue) {
-        if (index >= 0 && index < array.length) {
-            return array[index].trim(); // Убираем лишние пробелы
-        }
-        return defaultValue;
-    }
+
 }
