@@ -10,7 +10,6 @@ import com.okmich.mysql2mongodb.ui.AppFrame;
 import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
-//import io.github.cdimascio.dotenv.Dotenv;
 
 /**
  * @author michael.enudi
