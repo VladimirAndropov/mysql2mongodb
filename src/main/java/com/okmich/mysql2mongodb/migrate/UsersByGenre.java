@@ -43,25 +43,23 @@ public class UsersByGenre extends BaseMigration {
 
         AggregateIterable<Document> documents = collection.aggregate(
                 Arrays.asList(
-                        new Document("$match",
-                                new Document("rating", 5)
-                        ),
-                        new Document("$lookup",
-                                new Document("from", "users")
-                                        .append("localField", "user_id")
-                                        .append("foreignField", "_id")
-                                        .append("as", "user")
-                        ),
+                        new Document("$match", new Document("rating", 5)),
+                        new Document("$lookup", new Document()
+                                .append("from", "users")
+                                .append("localField", "user_id")
+                                .append("foreignField", "_id")
+                                .append("as", "user")),
                         new Document("$unwind", "$user"),
-                        new Document("$project",
-                                new Document("zip_code", "$user.zip_code")
-                                        .append("gender", "$user.gender")
-                                        .append("age_group", "$user.age_group")
-                        ),
-                        new Document("$match",
-                                new Document("gender", selectedItem)
-                                        .append("age_group", selectedItem2)
-                        )
+                        new Document("$project", new Document()
+                                .append("zip_code", "$user.zip_code")
+                                .append("gender", "$user.gender")
+                                .append("age_group", "$user.age_group")),
+                        new Document("$match", new Document()
+                                .append("gender", selectedItem)
+                                .append("age_group", selectedItem2)),
+                        new Document("$project", new Document()
+                                .append("zip_code", 1)
+                                .append("_id", 0))
                 )
         );
 

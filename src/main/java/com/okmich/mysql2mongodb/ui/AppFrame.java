@@ -14,7 +14,7 @@ public class AppFrame extends JFrame {
     public AppFrame(String dbServerUrl, String dbUser, String dbPassword,
                     String mongoDbUrl, String mongoDbName) {
         $$$setupUI$$$();
-        setSize(300, 300);
+        setSize(600, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Центрируем окно на экране
         tabbedPane1.addTab("Movies", new MoviePanel(dbServerUrl, dbUser, dbPassword, mongoDbUrl, mongoDbName).$$$getRootComponent$$$());

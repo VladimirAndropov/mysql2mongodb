@@ -9,7 +9,8 @@ db.ratings.aggregate([
     },
     {$unwind : '$user'},
     {$project : {'zip_code' : '$user.zip_code', "gender":"$user.gender", 'age_group':'$user.age_group' }},
-    {$match : {"gender": "F", 'age_group': "56+"}}
+    {$match : {"gender": "F", 'age_group': "56+"}},
+    {$project : {'zip_code' : 1, '_id':0 }},
 ])
 
 db.ratings.aggregate([

@@ -39,20 +39,15 @@ public class RatingsByGenre extends BaseMigration{
         AggregateIterable<Document> documents = collection.aggregate(
                 Arrays.asList(
                         new Document("$match", new Document("rating", Integer.parseInt(selectedItem))),
-                        new Document("$lookup",
-                                new Document("from", "movies")
-                                        .append("localField", "movie_id")
-                                        .append("foreignField", "_id")
-                                        .append("as", "movie")
-                        ),
-                        new Document("$unwind", "$movie")
-//                        new Document("$project",
-//                                new Document("movie", "$movie")
-//                                        .append("_id", 0)
-//                                        .append("movie._id", 0)
-//                                        .append("movie.release_year", 0)
-//                                        .append("movie.genres", 0)
-//                        )
+                        new Document("$lookup", new Document()
+                                .append("from", "movies")
+                                .append("localField", "movie_id")
+                                .append("foreignField", "_id")
+                                .append("as", "movie")),
+                        new Document("$unwind", "$movie"),
+                        new Document("$project", new Document()
+                                .append("movie", "$movie.title")
+                                .append("_id", 0))
                 )
         );
 

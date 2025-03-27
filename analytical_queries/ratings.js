@@ -60,7 +60,7 @@ db.ratings_v2.aggregate([
 ])
 
 db.ratings.aggregate([
-	// {$match : {"rating" : 5}},
+	 {$match : {"rating" : 5}},
 	{$lookup : {
 			from : 'movies',
 			localField: 'movie_id',
@@ -69,9 +69,9 @@ db.ratings.aggregate([
 		}
 	},
 	{$unwind : '$movie'},
-	{$group : {
-			_id : {  'rating' : '$rating'},
-			value : {$sum : 1}
-		}},
-	{$project : {'movie' : '$movie', '_id':0, 'movie._id' : 0, '_id':0, 'movie.release_year': 0, 'movie.genres':0}},
+	// {$group : {
+	//         _id : {  'rating' : '$rating'},
+	//         value : {$sum : 1}
+	//     }},
+	{$project : {'movie' : '$movie.title', '_id':0}},
 ])

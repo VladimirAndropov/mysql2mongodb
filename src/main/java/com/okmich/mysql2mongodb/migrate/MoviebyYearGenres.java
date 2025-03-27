@@ -32,18 +32,13 @@ public class MoviebyYearGenres extends BaseMigration{
         StringBuilder result = new StringBuilder();
         AggregateIterable<Document> documents = collection.aggregate(
                 Arrays.asList(
-                        new Document("$project", new Document("release_year", 1)
-                                .append("genres", 1)
-                                .append("title", 1)
-                                .append("_id", 0)),
                         new Document("$unwind", "$genres"),
-//                new Document("$group", new Document("_id", new Document("year", "$release_year")
-//                        .append("genre", "$genres"))
-//                        .append("value", new Document("$sum", 1))),
                         new Document("$match",
                                 new Document("release_year", Integer.parseInt(selectedItem))
                                         .append("genres", selectedItem2)
-                        )
+                        ),
+                        new Document("$project", new Document("title", "$title")
+                                .append("_id", 0))
                 ));
         // Обрабатываем результаты
         for (Document doc : documents) {
