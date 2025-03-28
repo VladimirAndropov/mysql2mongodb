@@ -53,7 +53,7 @@ public class RatingsByGenre extends BaseMigration{
 
         // Обрабатываем результаты
         for (Document doc : documents) {
-            result.append(doc.toJson()).append("\n"); // Добавляем каждый документ в виде JSON
+            result.append(doc.getString("movie")).append("\n"); // Добавляем каждый документ в виде JSON
         }
 
         return result.toString();

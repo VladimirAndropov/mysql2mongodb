@@ -65,7 +65,7 @@ public class UsersByGenre extends BaseMigration {
 
         // Обрабатываем результаты
         for (Document doc : documents) {
-            result.append(doc.toJson()).append("\n"); // Добавляем каждый документ в виде JSON
+            result.append(doc.getString("zip_code")).append("\n"); // Добавляем каждый документ в виде JSON
         }
 
         return result.toString();
