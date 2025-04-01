@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import com.okmich.mysql2mongodb.migrate.BaseMigration;
+import com.okmich.mysql2mongodb.migrate.UserCountAge;
 import  com.okmich.mysql2mongodb.migrate.UsersByGenre;
 
 public class UserPanel extends JPanel {
@@ -14,6 +15,8 @@ public class UserPanel extends JPanel {
     private JTextArea textArea1;
     private JComboBox comboBox1;
     private JComboBox comboBox2;
+    private JTextArea textArea2;
+    private JButton button2;
 
     /**
      * @param dbServerUrl
@@ -31,19 +34,6 @@ public class UserPanel extends JPanel {
         comboBox2.addItem("18-24");
 
 
-//        comboBox1.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                String selectedItem = (String) comboBox1.getSelectedItem();
-//                String selectedItem2 = (String) comboBox2.getSelectedItem();
-//                BaseMigration migrationUtil = new UsersByGenre(dbServerUrl, dbUser, dbPassword, mongoDbUrl, mongoDbName);
-//                String data = migrationUtil.getDataFromMongo(selectedItem, selectedItem2);
-//
-//                // Отображаем данные в JTextArea
-//                textArea1.setText(data);
-//                textArea1.append("success");
-//            }
-//        });
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -55,6 +45,16 @@ public class UserPanel extends JPanel {
                 // Отображаем данные в JTextArea
                 textArea1.setText(data);
                 textArea1.append("success");
+            }
+        });
+        button2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BaseMigration migrationUtil = new UserCountAge(dbServerUrl, dbUser, dbPassword, mongoDbUrl, mongoDbName);
+                String data = migrationUtil.getDataFromMongo(null, null);
+
+                // Отображаем данные в JTextArea
+                textArea2.setText(data);
             }
         });
     }

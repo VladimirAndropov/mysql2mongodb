@@ -2,6 +2,7 @@ package com.okmich.mysql2mongodb.ui;
 
 import com.okmich.mysql2mongodb.migrate.BaseMigration;
 import com.okmich.mysql2mongodb.migrate.RatingsByGenre;
+import com.okmich.mysql2mongodb.migrate.RatingsCountMovie;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +14,8 @@ public class RatingPanel extends JPanel {
     private JButton button1;
     private JTextArea textArea1;
     private JComboBox comboBox1;
+    private JTextArea textArea2;
+    private JButton button2;
 
 
     public RatingPanel(String dbServerUrl, String dbUser, String dbPassword, String mongoDbUrl, String mongoDbName) {
@@ -39,15 +42,13 @@ public class RatingPanel extends JPanel {
                 textArea1.setText(data);
             }
         });
-        comboBox1.addActionListener(new ActionListener() {
+
+        button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String selectedItem = (String) comboBox1.getSelectedItem();
-                BaseMigration migrationUtil = new RatingsByGenre(dbServerUrl, dbUser, dbPassword, mongoDbUrl, mongoDbName);
-                String data = migrationUtil.getDataFromMongo(selectedItem, null);
-
-                // Отображаем данные в JTextArea
-                textArea1.setText(data);
+                BaseMigration migrationUtil = new RatingsCountMovie(dbServerUrl, dbUser, dbPassword, mongoDbUrl, mongoDbName);
+                String data = migrationUtil.getDataFromMongo(null, null);
+                textArea2.setText(data);
             }
         });
     }

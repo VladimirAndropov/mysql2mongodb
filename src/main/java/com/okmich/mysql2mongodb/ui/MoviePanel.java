@@ -2,6 +2,7 @@ package com.okmich.mysql2mongodb.ui;
 
 import com.okmich.mysql2mongodb.migrate.BaseMigration;
 import com.okmich.mysql2mongodb.migrate.MoviebyYearGenres;
+import com.okmich.mysql2mongodb.migrate.MovieCountGenre;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +16,8 @@ public class MoviePanel extends JPanel {
     private JTextPane textPane1;
     private JComboBox comboBox1;
     private JComboBox comboBox2;
+    private JTextPane textPane2;
+    private JButton button2;
 
     /**
      * @param dbServerUrl
@@ -45,6 +48,16 @@ public class MoviePanel extends JPanel {
 
                 // Отображаем данные в JTextArea
                 textPane1.setText(data);
+            }
+        });
+        button2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BaseMigration migrationUtil = new MovieCountGenre(dbServerUrl, dbUser, dbPassword, mongoDbUrl, mongoDbName);
+                String data = migrationUtil.getDataFromMongo(null, null);
+
+                // Отображаем данные в JTextArea
+                textPane2.setText(data);
             }
         });
     }

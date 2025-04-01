@@ -2,6 +2,7 @@ package com.okmich.mysql2mongodb.ui;
 
 import com.okmich.mysql2mongodb.migrate.BaseMigration;
 import com.okmich.mysql2mongodb.migrate.TagsByGenre;
+import com.okmich.mysql2mongodb.migrate.TagsCountMovie;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +15,7 @@ public class TagsPanel extends JPanel {
     private JTextPane textPane1;
     private JComboBox comboBox1;
     private JTextPane textPane2;
+    private JButton button2;
 
     public TagsPanel(String dbServerUrl, String dbUser, String dbPassword,
                      String mongoDbUrl, String mongoDbName) {
@@ -35,6 +37,16 @@ public class TagsPanel extends JPanel {
                 String result = migrationUtil.getDataFromMongo(selectedItem, null);
 
                 textPane1.setText(result);
+            }
+        });
+        button2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BaseMigration migrationUtil = new TagsCountMovie(dbServerUrl, dbUser, dbPassword,
+                        mongoDbUrl, mongoDbName);
+                String result = migrationUtil.getDataFromMongo(null, null);
+
+                textPane2.setText(result);
             }
         });
     }
